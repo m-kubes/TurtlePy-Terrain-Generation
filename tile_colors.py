@@ -1,0 +1,47 @@
+tiles = {
+	'sand': {
+		'type': 'basic',
+		'outline_color': '#be772b',
+		'top_face_color': '#e8c170',
+		'left_face_color': '#de9e41'
+	},
+	'grass': {
+		'type': 'grasstop',
+		'top_outline_color': '#25562e',
+		'top_face_color': '#468232',
+		'bottom_outline_color': '#4d2b32',
+		'bottom_side_color': '#7a4841'
+	},
+	'forest_grass': {
+		'type': 'grasstop',
+		'top_outline_color': '#19332d',
+		'top_face_color': '#25562e',
+		'bottom_outline_color': '#4d2b32',
+		'bottom_side_color': '#7a4841'
+	},
+	'stone': {
+		'type': 'basic',
+		'outline_color': '#394a50',
+		'top_face_color': '#819796',
+		'left_face_color': '#577277'
+	},
+	'dark_stone': {
+		'type': 'basic',
+		'outline_color': '#202e37',
+		'top_face_color': '#577277',
+		'left_face_color': '#394a50'
+	},
+	'water': {
+		'type': 'basic',
+		'outline_color': '#3c5e8b',
+		'top_face_color': '#4f8fba',
+		'left_face_color': '#4f8fba'
+	},
+	'deep_water': {
+		'type': 'basic',
+		'outline_color': '#3c5e8b',
+		'top_face_color': '#3c5e8b',
+		'left_face_color': '#3c5e8b'
+	}
+}
+
