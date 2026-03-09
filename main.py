@@ -45,6 +45,7 @@ for x in range (height):
 			tile = tiles['dark_stone']
 			y += 2
 			scene_tiles.append((x,y-1,z,tile))
+			scene_tiles.append((x,y-2,z,tile))
 
 		elif biome_noise_value > tile_thresholds['mountain']:
 			tile = tiles['stone']

@@ -1,5 +1,7 @@
 import turtle
 
+# get sort order
+# things with higher sort orders are rendered last (on top of everything else)
 def sort_order(tile, ignoreType=False):
 	if not ignoreType:
 		match tile[3]['type']:
@@ -54,6 +56,7 @@ class TileDrawer():
 		t.setpos(x,y)
 		t.down()
 
+	# rectange
 	def draw_rect(self, size_x, size_y):
 		t = self.t
 		x, y = t.pos()
@@ -65,7 +68,7 @@ class TileDrawer():
 		t.goto(x - 0.5 * size_x, y + 0.5 * size_y)
 		t.end_fill()
 
-	# converts x,y coordinates to isometric
+	# converts x,y coordinates to an isometric grid
 	def to_isometric(self, x, y, z, tile_size):
 		iso_x = x * (0.5 * tile_size) + z * (-0.5 * tile_size)
 		iso_y = x * (0.25 * tile_size) + z * (0.25 * tile_size) + y * (0.5 * tile_size)
@@ -91,6 +94,7 @@ class TileDrawer():
 		t.goto(t.pos()[0] + (side * 0.5 * size_x), t.pos()[1] + (-0.25 * size_x))
 		t.end_fill()
 
+	# tree leaves bro
 	def draw_tree_leaves(self, size):
 		t = self.t
 		x, y = t.pos()
@@ -107,7 +111,8 @@ class TileDrawer():
 
 
 	# all the math and color stuff needed to draw a tile
-	# grasstop tiles are drawn differently
+	# currently only accounts for tile types 'basic', 'grasstop', and 'tree'
+	# this does fortunatly allow for modular tile colors so you can go into tile_colors.py and make whatever tile u want
 	def draw_tile(self,x,y,z,tile):
 		t = self.t
 		t.seth(0)
@@ -154,16 +159,19 @@ class TileDrawer():
 				t.fillcolor(tile['bottom_outline_color'])
 				self.draw_side_tile_face(self.tile_size, self.tile_size * 0.7, -1)
 			case 'tree':
+				# trunk
 				t.color(tile['trunk_outline_color'])
 				t.fillcolor(tile['trunk_color'])
 				self.setpos_noline(x, y - 0.125 * self.tile_size)
 				self.draw_rect(0.25 * self.tile_size, 0.25 * self.tile_size)
 
+				# part of trunk in shadow from the leaves
 				t.color(tile['trunk_shaded_outline_color'])
 				t.fillcolor(tile['trunk_shaded_color'])
 				self.setpos_noline(x, y + 0.125 * self.tile_size)
 				self.draw_rect(0.25 * self.tile_size, 0.25 * self.tile_size)
 
+				# leaves
 				t.color(tile['leaves_outline_color'])
 				t.fillcolor(tile['leaves_color'])
 				self.setpos_noline(x,y + 0.125 * self.tile_size)
