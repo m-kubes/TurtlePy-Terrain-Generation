@@ -11,7 +11,6 @@ from noise_generation import *
 width, height = 40, 40
 height_variance = 9
 tree_chance = 0.45
-use_pregenerated_noise = False
 
 # places this tile if GREATER THAN the float
 # water always places below the lowest threshold
@@ -22,24 +21,18 @@ tile_thresholds = {
 	'beach': 0.4
 }
 
-
-if not use_pregenerated_noise:
-	seed_value = random.randint(1, 1000000)
-	biome_noise = PerlinNoise(octaves=4, seed=seed_value)
-	forest_noise = PerlinNoise(octaves=3, seed=seed_value + 123)
+seed_value = random.randint(1, 1000000)
+biome_noise = PerlinNoise(octaves=4, seed=seed_value)
+forest_noise = PerlinNoise(octaves=3, seed=seed_value + 123)
 
 
 # create list of tiles
 scene_tiles = []
 for x in range (height):
 	for z in range(width):
-		if use_pregenerated_noise:
-			print('fix this')
-			pass
-		else:
-			# get noise values and make them between 0 and 1
-			biome_noise_value = (biome_noise([x/height, z/width]) + 1) / 2
-			forest_noise_value = (forest_noise([x/height, z/width]) + 1) / 2
+		# get noise values and make them between 0 and 1
+		biome_noise_value = (biome_noise([x/height, z/width]) + 1) / 2
+		forest_noise_value = (forest_noise([x/height, z/width]) + 1) / 2
 
 		# get y value of tile from noise
 		# this also centers the terrain on the screen
@@ -52,7 +45,6 @@ for x in range (height):
 			tile = tiles['dark_stone']
 			y += 2
 			scene_tiles.append((x,y-1,z,tile))
-			scene_tiles.append((x,y-2,z,tile))
 
 		elif biome_noise_value > tile_thresholds['mountain']:
 			tile = tiles['stone']

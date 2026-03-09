@@ -2,6 +2,11 @@ from perlin_noise import PerlinNoise
 import random
 import os
 
+# I AM NOT GOING TO IMPLEMENT THIS
+# was going to make pregenerated perlin noise saved in the templateNoise dir because I thought CTE computers couldn't pip install perlin_noise
+# turns out they can so there isn't any reason to continue this
+# I'm gonna leave it here tho still cuz I like it
+
 
 def write_noise(width, height, file_extension, seed=random.randint(1, 1000000)):
 	noise = PerlinNoise(octaves=4, seed=seed)
