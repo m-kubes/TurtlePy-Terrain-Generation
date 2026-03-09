@@ -1,10 +1,12 @@
 import turtle
 
 def sort_order(tile, ignoreType=False):
-	if not ignoreType and tile[3]['type'] == 'tree':
-		return (sort_order(tile, True) + sort_order((tile[0],tile[1]+1,tile[2],tile[3]), True)) / 2
-	else:
-		return ((tile[0] + tile[2]) * -1) + tile[1]
+	if not ignoreType:
+		match tile[3]['type']:
+			case 'tree':
+				return (sort_order(tile, True) + sort_order((tile[0],tile[1]+1,tile[2],tile[3]), True)) / 2
+
+	return ((tile[0] + tile[2]) * -1) + tile[1]
 		
 
 # merge sort that fixes the sorting order for rendering
