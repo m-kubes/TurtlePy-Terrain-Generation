@@ -37,11 +37,13 @@ tiles = {
 		'top_face_color': '#4f8fba',
 		'left_face_color': '#4f8fba'
 	},
-	'deep_water': {
-		'type': 'basic',
-		'outline_color': '#3c5e8b',
-		'top_face_color': '#3c5e8b',
-		'left_face_color': '#3c5e8b'
+	'tree': {
+		'type': 'tree',
+		'leaves_outline_color': '#19332d',
+		'leaves_color': '#25562e',
+		'trunk_outline_color': '#602c2c',
+		'trunk_color': '#884b2b',
+		'trunk_shaded_outline_color': '#341c27',
+		'trunk_shaded_color': '#602c2c'
 	}
 }
-

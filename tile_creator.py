@@ -1,7 +1,11 @@
 import turtle
 
-def sort_order(tile):
-	return ((tile[0] + tile[2]) * -1) + tile[1]
+def sort_order(tile, ignoreType=False):
+	if not ignoreType and tile[3]['type'] == 'tree':
+		return (sort_order(tile, True) + sort_order((tile[0],tile[1]+1,tile[2],tile[3]), True)) / 2
+	else:
+		return ((tile[0] + tile[2]) * -1) + tile[1]
+		
 
 # merge sort that fixes the sorting order for rendering
 def sort_to_render(arr):
@@ -33,10 +37,10 @@ def merge(left, right):
 
 
 class TileDrawer():
-	def __init__(self, tile_size, outline_width=2, is_animated=True):
+	def __init__(self, tile_size, outline_width=2, is_animated=True, speed=0):
 		self.tile_size = tile_size
 		self.t = turtle.Turtle()
-		self.t.speed(0)
+		self.t.speed(speed)
 		self.t.width(outline_width)	
 		screen = turtle.Screen()
 		screen.tracer(1 if is_animated else 0)
@@ -47,6 +51,17 @@ class TileDrawer():
 		t.up()
 		t.setpos(x,y)
 		t.down()
+
+	def draw_rect(self, size_x, size_y):
+		t = self.t
+		x, y = t.pos()
+		self.setpos_noline(x - 0.5 * size_x, y + 0.5 * size_y)
+		t.begin_fill()
+		t.goto(x - 0.5 * size_x, y - 0.5 * size_y)
+		t.goto(x + 0.5 * size_x, y - 0.5 * size_y)
+		t.goto(x + 0.5 * size_x, y + 0.5 * size_y)
+		t.goto(x - 0.5 * size_x, y + 0.5 * size_y)
+		t.end_fill()
 
 	# converts x,y coordinates to isometric
 	def to_isometric(self, x, y, z, tile_size):
@@ -73,6 +88,21 @@ class TileDrawer():
 		t.goto(t.pos()[0], t.pos()[1] + (0.5 * size_y))
 		t.goto(t.pos()[0] + (side * 0.5 * size_x), t.pos()[1] + (-0.25 * size_x))
 		t.end_fill()
+
+	def draw_tree_leaves(self, size):
+		t = self.t
+		x, y = t.pos()
+		t.begin_fill()
+		self.setpos_noline(x - 0.4 * size, y)
+		t.goto(x + 0.4 * size, y)
+		t.goto(x + 0.2 * size, y + 0.5 * size)
+		t.goto(x + 0.325 * size, y + 0.5 * size)
+		t.goto(x, y + 1.25 * size)
+		t.goto(x - 0.325 * size, y + 0.5 * size)
+		t.goto(x - 0.2 * size, y + 0.5 * size)
+		t.goto(x - 0.4 * size, y)
+		t.end_fill()
+
 
 	# all the math and color stuff needed to draw a tile
 	# grasstop tiles are drawn differently
@@ -121,3 +151,18 @@ class TileDrawer():
 				# draw bottom right face
 				t.fillcolor(tile['bottom_outline_color'])
 				self.draw_side_tile_face(self.tile_size, self.tile_size * 0.7, -1)
+			case 'tree':
+				t.color(tile['trunk_outline_color'])
+				t.fillcolor(tile['trunk_color'])
+				self.setpos_noline(x, y - 0.125 * self.tile_size)
+				self.draw_rect(0.25 * self.tile_size, 0.25 * self.tile_size)
+
+				t.color(tile['trunk_shaded_outline_color'])
+				t.fillcolor(tile['trunk_shaded_color'])
+				self.setpos_noline(x, y + 0.125 * self.tile_size)
+				self.draw_rect(0.25 * self.tile_size, 0.25 * self.tile_size)
+
+				t.color(tile['leaves_outline_color'])
+				t.fillcolor(tile['leaves_color'])
+				self.setpos_noline(x,y + 0.125 * self.tile_size)
+				self.draw_tree_leaves(self.tile_size)
