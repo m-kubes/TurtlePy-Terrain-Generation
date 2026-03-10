@@ -9,35 +9,6 @@ def sort_order(tile, ignoreType=False):
 				return (sort_order(tile, True) + sort_order((tile[0],tile[1]+1,tile[2],tile[3]), True)) / 2
 
 	return ((tile[0] + tile[2]) * -1) + tile[1]
-		
-
-# merge sort that fixes the sorting order for rendering
-def sort_to_render(arr):
-    if len(arr) <= 1:
-        return arr
-    
-    # Divide
-    mid = len(arr) // 2
-    left = sort_to_render(arr[:mid])
-    right = sort_to_render(arr[mid:])
-    
-    # Merge
-    return merge(left, right)
-
-# for sort_to_render
-def merge(left, right):
-    result = []
-    i = j = 0
-    while i < len(left) and j < len(right):
-        if sort_order(left[i]) < sort_order(right[j]):
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
 
 
 class TileDrawer():
@@ -133,6 +104,20 @@ class TileDrawer():
 				# draw right side face
 				t.fillcolor(tile['outline_color'])
 				self.draw_side_tile_face(self.tile_size, self.tile_size, -1)
+			case 'liquid':
+				self.setpos_noline(x, y - 0.15 * self.tile_size)
+				# draw top face
+				t.color(tile['outline_color'])
+				t.fillcolor(tile['top_face_color'])
+				self.draw_top_tile_face(self.tile_size)
+
+				# draw left side face
+				t.fillcolor(tile['left_face_color'])
+				self.draw_side_tile_face(self.tile_size, self.tile_size - 0.3 * self.tile_size, 1)
+
+				# draw right side face
+				t.fillcolor(tile['outline_color'])
+				self.draw_side_tile_face(self.tile_size, self.tile_size - 0.3 * self.tile_size, -1)
 			case 'grasstop':
 				# draw top face
 				t.color(tile['top_outline_color'])

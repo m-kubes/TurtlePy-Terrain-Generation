@@ -12,6 +12,12 @@ tiles = {
 		'bottom_outline_color': '#4d2b32',
 		'bottom_side_color': '#7a4841'
 	},
+	'dirt': {
+		'type': 'basic',
+		'outline_color': '#4d2b32',
+		'top_face_color': '#7a4841',
+		'left_face_color': '#7a4841'
+	},
 	'forest_grass': {
 		'type': 'grasstop',
 		'top_outline_color': '#19332d',
@@ -32,6 +38,12 @@ tiles = {
 		'left_face_color': '#394a50'
 	},
 	'water': {
+		'type': 'liquid',
+		'outline_color': '#3c5e8b',
+		'top_face_color': '#4f8fba',
+		'left_face_color': '#4f8fba'
+	},
+    'full_water': {
 		'type': 'basic',
 		'outline_color': '#3c5e8b',
 		'top_face_color': '#4f8fba',
