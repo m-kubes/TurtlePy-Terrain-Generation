@@ -7,6 +7,7 @@ tiles = {
 	},
 	'grass': {
 		'type': 'grasstop',
+        'edge_tile': 'dirt',
 		'top_outline_color': '#25562e',
 		'top_face_color': '#468232',
 		'bottom_outline_color': '#4d2b32',
@@ -39,6 +40,7 @@ tiles = {
 	},
 	'water': {
 		'type': 'liquid',
+        'edge_tile': 'full_water',
 		'outline_color': '#3c5e8b',
 		'top_face_color': '#4f8fba',
 		'left_face_color': '#4f8fba'

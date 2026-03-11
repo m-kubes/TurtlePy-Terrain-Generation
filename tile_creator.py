@@ -15,6 +15,7 @@ class TileDrawer():
 	def __init__(self, tile_size, outline_width=2, is_animated=True, speed=0):
 		self.tile_size = tile_size
 		self.t = turtle.Turtle()
+		turtle.tracer(0, 0)
 		self.t.speed(speed)
 		self.t.width(outline_width)	
 		screen = turtle.Screen()
